@@ -1,0 +1,50 @@
+<div class="central-admin-dashboard">
+  <h1>Central Admin Dashboard</h1>
+
+  <div *ngIf="authService.isAdmin; else noAccess">
+    <div class="request-summary">
+      <span>Admin requests: {{ authService.pendingAdminRequests() }}</span>
+      <span>Staff requests: {{ authService.pendingStaffRequests() }}</span>
+      <span>Total pending: {{ authService.pendingRequestCount }}</span>
+    </div>
+
+    <div class="filter-buttons">
+      <button type="button" (click)="setFilter('all')" [class.active]="currentFilter === 'all'">All</button>
+      <button type="button" (click)="setFilter('admin')" [class.active]="currentFilter === 'admin'">Admin only</button>
+      <button type="button" (click)="setFilter('staff')" [class.active]="currentFilter === 'staff'">Staff only</button>
+    </div>
+
+    <div *ngIf="error" class="error">{{ error }}</div>
+    <div *ngIf="loading">Loading requests…</div>
+
+    <table class="requests-table">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Requested Role</th>
+          <th>Current Role</th>
+          <th>Requested At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of requests">
+          <td>{{ request.email }}</td>
+          <td>{{ request.admin_requested ? 'admin' : 'staff' }}</td>
+          <td>{{ request.role }}</td>
+          <td>{{ request.created_at | date:'medium' }}</td>
+          <td>
+            <button type="button" (click)="respond(request, 'approve')">Approve</button>
+            <button type="button" (click)="respond(request, 'deny')">Deny</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p *ngIf="!loading && !requests.length">No pending requests.</p>
+  </div>
+
+  <ng-template #noAccess>
+    <p>You do not have permission to view this page.</p>
+  </ng-template>
+</div>

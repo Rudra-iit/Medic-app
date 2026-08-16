@@ -1,0 +1,147 @@
+/* --- 1. SIDEBAR --- */
+
+:host {
+  display: block;
+}
+
+:host-context(.dark-theme) .collapsible-sidebar {
+  background-color: #1e293b;
+  color: #f8fafc;
+}
+
+.collapsible-sidebar {
+  max-width: 240px;
+  width: 100%;
+  min-height: calc(100dvh - 84px);
+  min-height: calc(100vh - 84px);
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  transition: width 0.25s ease, background 0.2s ease;
+  overflow: hidden;
+  padding-bottom: 1rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  .collapsible-sidebar {
+    max-width: none;
+    min-height: auto;
+  }
+}
+
+:host-context(body.sidebar-collapsed) .collapsible-sidebar {
+  width: 64px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 24px 18px;
+  font-size: 18px;
+  font-weight: 700;
+  transition: padding 0.25s ease, justify-content 0.25s ease, gap 0.25s ease;
+}
+
+:host-context(body.sidebar-collapsed) .brand {
+  justify-content: center;
+  gap: 0;
+  padding: 24px 12px;
+}
+
+.brand-logo {
+  font-size: 18px;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: inline-grid;
+  place-items: center;
+  background: rgba(15, 23, 42, 0.08);
+}
+
+.brand-text {
+  overflow: hidden;
+  transition: opacity 0.18s ease, width 0.18s ease;
+}
+
+.brand-text h2 {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+
+:host-context(body.sidebar-collapsed) .brand-text {
+  opacity: 0;
+  width: 0;
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 10px;
+}
+
+.menu-item {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  padding: 12px 14px;
+  color: rgba(15, 23, 42, 0.75);
+  text-decoration: none;
+  border-radius: 16px;
+  gap: 14px;
+  font-size: 0.95rem;
+  transition: all 0.18s ease;
+}
+
+.menu-item:hover, .menu-item.active {
+  color: #0f172a;
+  background-color: rgba(59, 130, 246, 0.08);
+}
+
+.menu-item.active {
+  height: 20px;
+}
+
+.menu-item .icon {
+  width: 34px;
+  height: 34px;
+  display: inline-grid;
+  place-items: center;
+  font-size: 1rem;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.04);
+}
+
+.menu-item .label {
+  transition: opacity 0.18s ease, transform 0.18s ease, width 0.18s ease;
+  white-space: nowrap;
+}
+
+:host-context(body.sidebar-collapsed) .menu-item .label {
+  opacity: 0;
+  transform: translateX(-6px);
+  width: 0;
+  pointer-events: none;
+}
+
+.menu-item .badge {
+  margin-left: auto;
+  background-color: #2563eb;
+  color: #fff;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+:host-context(body.sidebar-collapsed) .menu-item .badge {
+  opacity: 0;
+  transform: scale(0.8);
+  width: 0;
+  pointer-events: none;
+}

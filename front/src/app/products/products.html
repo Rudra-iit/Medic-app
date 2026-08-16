@@ -1,0 +1,88 @@
+<div class="container">
+  <h1>Medical Products</h1>
+  <p *ngIf="error" class="error">{{ error }}</p>
+
+  <!-- Category filter -->
+  <div class="filter-row">
+    <label for="categoryFilter">Category:</label>
+    <select id="categoryFilter" [(ngModel)]="selectedCategoryId" (change)="onCategoryFilterChange()">
+      <option [ngValue]="null">All categories</option>
+      <option *ngFor="let c of categories" [ngValue]="c.id">{{ c.name }}</option>
+    </select>
+  </div>
+
+  <!-- Product list with scroll -->
+  <div class="product-list-container">
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Category</th>
+          <th>SKU</th>
+          <th>Form / Strength</th>
+          <th>Stock</th>
+          <th>Expiry</th>
+          <th>Rx?</th>
+          <th *ngIf="authService.isAdmin || authService.isStaff"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of products" [class.low-stock]="isLowStock(p)">
+          <td>{{ p.name }}</td>
+          <td>{{ categoryName(p.category_id) }}</td>
+          <td>{{ p.sku }}</td>
+          <td>{{ p.dosage_form }} {{ p.strength }}</td>
+          <td>
+            <span *ngIf="!authService.isAdmin && !authService.isStaff">{{ p.quantity_in_stock }}</span>
+            <ng-container *ngIf="authService.isAdmin || authService.isStaff">
+              <button (click)="adjustStock(p, -1)">−</button>
+              {{ p.quantity_in_stock }}
+              <button (click)="adjustStock(p, 1)">+</button>
+            </ng-container>
+            <span *ngIf="isLowStock(p)" class="low-stock-badge">low</span>
+          </td>
+          <td>{{ p.expiry_date || '—' }}</td>
+          <td>{{ p.requires_prescription ? 'Yes' : 'No' }}</td>
+          <td *ngIf="authService.isAdmin">
+            <button class="delete-btn" (click)="deleteProduct(p)">✕</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p *ngIf="!loading && products.length === 0">No products in this category yet.</p>
+
+  <div *ngIf="authService.isAdmin" class="card">
+    <h2>Add Category</h2>
+    <div class="form-row">
+      <input [(ngModel)]="newCategoryName" placeholder="Category name" />
+      <button (click)="addCategory()">Add</button>
+    </div>
+  </div>
+
+  <div *ngIf="authService.isAdmin" class="card">
+    <h2>Add Product</h2>
+    <div class="form-grid">
+      <input [(ngModel)]="newProduct.name" placeholder="Name *" />
+      <select [(ngModel)]="newProduct.category_id">
+        <option [ngValue]="0" disabled>Category *</option>
+        <option *ngFor="let c of categories" [ngValue]="c.id">{{ c.name }}</option>
+      </select>
+      <input [(ngModel)]="newProduct.sku" placeholder="SKU *" />
+      <input [(ngModel)]="newProduct.dosage_form" placeholder="Dosage form (tablet, syrup...)" />
+      <input [(ngModel)]="newProduct.strength" placeholder="Strength (500mg)" />
+      <input [(ngModel)]="newProduct.unit" placeholder="Unit (box, bottle...)" />
+      <input [(ngModel)]="newProduct.quantity_in_stock" type="number" placeholder="Quantity in stock" />
+      <input [(ngModel)]="newProduct.reorder_threshold" type="number" placeholder="Low-stock threshold" />
+      <input [(ngModel)]="newProduct.expiry_date" type="date" />
+      <input [(ngModel)]="newProduct.manufacturer" placeholder="Manufacturer" />
+      <label class="checkbox-row">
+        <input type="checkbox" [(ngModel)]="newProduct.requires_prescription" />
+        Requires prescription
+      </label>
+      <textarea [(ngModel)]="newProduct.notes" placeholder="Notes"></textarea>
+    </div>
+    <button (click)="addProduct()">Add Product</button>
+  </div>
+</div>

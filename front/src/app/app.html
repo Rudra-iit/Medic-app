@@ -1,0 +1,14 @@
+<div class="app-shell" [class.dark-theme]="isDarkMode()">
+  <div class="layout">
+    <!-- Sidebar on the left -->
+    <app-sidebar class="sidebar"></app-sidebar>
+
+    <!-- Right side: header + main stacked vertically -->
+    <div class="right-panel">
+      <app-header class="header"></app-header>
+      <main class="main-content">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+  </div>
+</div>

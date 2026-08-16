@@ -1,0 +1,80 @@
+<aside class="collapsible-sidebar">
+  <div class="sidebar-header">
+    <div class="brand">
+      <div class="brand-logo">D</div>
+      <div class="brand-text">
+        <h2><a routerLink="/dashboard">Darkone</a></h2>
+      </div>
+    </div>
+  </div>
+
+  <ul class="sidebar-menu">
+    <li>
+      <a routerLink="/dashboard" class="menu-item">
+        <span class="icon">🏠</span>
+        <span class="label">Dashboard</span>
+      </a>
+    </li>
+  <li>
+  <a (click)="toggleProducts()" class="menu-item">
+    <span class="icon">📦</span>
+    <a routerLink="/products" class="menu-item">
+      <span class="label">Products</span>
+    </a>
+    <span class="expand-icon">{{ showProducts ? 'v' : '^' }}</span>
+  </a>
+
+  <ul *ngIf="showProducts && authService.isAuthenticated && authService.isAdmin" class="submenu">
+    <li>
+      <a routerLink="/products" class="menu-item">
+        <span class="icon">➕</span>
+        <span class="label">Product</span>
+      </a>
+      </li>
+      <li>
+      <a routerLink="/central-admin" class="menu-item">
+        <span class="icon">📝</span>
+        <span class="label">People</span>
+      </a>
+      </li>
+      </ul>
+    </li>
+
+    <li *ngIf="!authService.isAuthenticated">
+      <a (click)="toggleAuth()" class="menu-item">
+        <span class="icon">🔑</span>
+        <span class="label">Authentication</span>
+        <span class="expand-icon">{{ showAuth ? 'v' : '^' }}</span>
+      </a>
+
+  <ul *ngIf="showAuth" class="submenu">
+    <li>
+      <a routerLink="/login" class="menu-item">
+        <span class="icon">🔐</span>
+        <span class="label">Login</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/register" class="menu-item">
+        <span class="icon">📝</span>
+        <span class="label">Register</span>
+      </a>
+    </li>
+  </ul>
+</li>
+
+    <li *ngIf="authService.isAuthenticated">
+      <button type="button" class="menu-item menu-button" (click)="logout()">
+        <span class="icon">🚪</span>
+        <span class="label">Logout</span>
+      </button>
+    </li>
+    <li>
+      <a routerLink="/invoice" class="menu-item">
+        <span class="icon">🧾</span>
+        <span class="label">Invoice</span>
+      </a>
+    </li>
+  </ul>
+
+</aside>

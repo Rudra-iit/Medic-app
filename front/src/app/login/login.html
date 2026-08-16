@@ -1,0 +1,32 @@
+<div class="login-container">
+  <h1 class="login-title">Login</h1>
+
+  <div class="form-card">
+    <label class="form-label">
+      Email
+      <input
+        type="email"
+        [(ngModel)]="email"
+        placeholder="you@example.com"
+        class="form-input"
+      />
+    </label>
+
+    <label class="form-label">
+      Password
+      <input
+        type="password"
+        [(ngModel)]="password"
+        placeholder="Enter your password"
+        class="form-input"
+      />
+    </label>
+
+    <button type="button" (click)="submit()" [disabled]="loading" class="login-button">
+      Login
+    </button>
+
+    <p *ngIf="error" class="error-message">{{ error }}</p>
+    <p *ngIf="loading" class="loading-message">Signing in…</p>
+  </div>
+</div>

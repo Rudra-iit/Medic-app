@@ -1,0 +1,43 @@
+<div class="container">
+  <h1>Register</h1>
+
+  <div class="form-card">
+    <label>
+      Email
+      <input
+        type="email"
+        [(ngModel)]="email"
+        placeholder="you@example.com"
+      />
+    </label>
+
+    <label>
+      Password
+      <input
+        type="password"
+        [(ngModel)]="password"
+        placeholder="Enter a password"
+      />
+    </label>
+
+    <div class="role-request-row">
+      <p>New users are created as <strong>client</strong>. Use the checkboxes below to request elevated roles.</p>
+      <label>
+        <input type="checkbox" [(ngModel)]="requestAdmin" />
+        Request admin access
+      </label>
+      <label>
+        <input type="checkbox" [(ngModel)]="requestStaff" />
+        Request staff access
+      </label>
+    </div>
+
+    <button type="button" (click)="submit()" [disabled]="loading">
+      Register
+    </button>
+
+    <p *ngIf="error" class="error">{{ error }}</p>
+    <p *ngIf="loading">Registering…</p>
+  </div>
+</div>
+

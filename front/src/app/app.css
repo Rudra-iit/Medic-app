@@ -1,0 +1,88 @@
+:host {
+  display: block;
+  width: 100%;
+  min-height: 100dvh;
+  min-height: 100vh;
+  background: #f8fafc;
+  color: #111827;
+}
+
+.app-shell {
+  width: 100%;
+  min-height: 100dvh;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 1rem;
+  box-sizing: border-box;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.app-shell.dark-theme {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+.theme-toggle-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.theme-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.theme-toggle {
+  border: none;
+  border-radius: 999px;
+  padding: 0.45rem 0.7rem;
+  cursor: pointer;
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.app-shell.dark-theme .theme-toggle {
+  background: #334155;
+  color: #f8fafc;
+}
+
+.layout {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  width: 100%;
+  min-height: calc(100dvh - 2rem);
+  min-height: calc(100vh - 2rem);
+}
+
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .app-shell {
+    padding: 0.75rem;
+  }
+
+  .layout {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .right-panel {
+    width: 100%;
+  }
+}

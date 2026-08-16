@@ -1,0 +1,104 @@
+/* General container */
+.container {
+  max-width: 450px;
+  margin: 80px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Title */
+.container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Card styling */
+.form-card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Labels */
+.form-card label {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: 500;
+  color: #444;
+}
+
+/* Inputs */
+.form-card input[type="email"],
+.form-card input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.form-card input:focus {
+  border-color: #0078d7;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0,120,215,0.3);
+}
+
+/* Role request section */
+.role-request-row {
+  margin: 20px 0;
+  padding: 15px;
+  background: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 6px;
+}
+
+.role-request-row p {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.role-request-row label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: normal;
+  color: #333;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #0078d7;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: #005a9e;
+}
+
+/* Messages */
+.error {
+  color: #d9534f;
+  margin-top: 10px;
+  text-align: center;
+}
+
+p[ng-reflect-ng-if="true"] {
+  color: #0078d7;
+  margin-top: 10px;
+  text-align: center;
+}

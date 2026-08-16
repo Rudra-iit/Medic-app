@@ -1,0 +1,88 @@
+<div class="invoice-wrapper">
+  <div class="invoice" #invoiceEl>
+
+    <!-- Header -->
+    <header class="invoice-header">
+      <div class="company-block">
+        <div class="logo-placeholder">{{ company.name.charAt(0) }}</div>
+        <div>
+          <h1>{{ company.name }}</h1>
+          <p>{{ company.address }}</p>
+          <p>{{ company.email }} &middot; {{ company.phone }}</p>
+        </div>
+      </div>
+      <div class="invoice-title-block">
+        <h2>INVOICE</h2>
+        <p><span>No.</span> {{ meta.number }}</p>
+      </div>
+    </header>
+
+    <!-- Bill To + Dates -->
+    <section class="invoice-info">
+      <div class="bill-to">
+        <h3>Bill To</h3>
+        <p class="name">{{ billTo.name }}</p>
+        <p>{{ billTo.address }}</p>
+        <p>{{ billTo.email }}</p>
+      </div>
+      <div class="dates">
+        <div class="date-row">
+          <span>Invoice Date</span>
+          <strong>{{ meta.date | date:'mediumDate' }}</strong>
+        </div>
+        <div class="date-row">
+          <span>Due Date</span>
+          <strong>{{ meta.dueDate | date:'mediumDate' }}</strong>
+        </div>
+      </div>
+    </section>
+
+    <!-- Line Items -->
+    <table class="items-table">
+      <thead>
+        <tr>
+          <th class="col-desc">Description</th>
+          <th class="col-qty">Qty</th>
+          <th class="col-price">Unit Price</th>
+          <th class="col-amount">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items">
+          <td class="col-desc">{{ item.desc }}</td>
+          <td class="col-qty">{{ item.qty }}</td>
+          <td class="col-price">{{ item.price | currency }}</td>
+          <td class="col-amount">{{ item.qty * item.price | currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Totals -->
+    <section class="totals">
+      <div class="totals-box">
+        <div class="totals-row">
+          <span>Subtotal</span>
+          <span>{{ subtotal | currency }}</span>
+        </div>
+        <div class="totals-row">
+          <span>Tax ({{ taxRate * 100 }}%)</span>
+          <span>{{ taxAmount | currency }}</span>
+        </div>
+        <div class="totals-row grand-total">
+          <span>Total Due</span>
+          <span>{{ total | currency }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="invoice-footer">
+      <p>Thank you for your business.</p>
+      <p class="small">Payment due within 14 days. Please include the invoice number as a reference.</p>
+    </footer>
+
+  </div>
+
+  <button class="download-btn" (click)="downloadInvoice()">Download PDF</button>
+  <button class="print-btn" (click)="printInvoice()" type="button">Print</button>
+</div>

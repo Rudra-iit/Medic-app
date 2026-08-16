@@ -1,0 +1,41 @@
+<header class="topbar">
+  <div class="left-actions">
+    <button class="toggle-btn" type="button" (click)="toggleSidebar()">☰</button>
+  </div>
+
+  <form class="search-form" action="/search" method="get">
+    <input
+      type="search"
+      id="site-search"
+      name="q"
+      placeholder="admin, widgets..."
+      aria-label="Search through site content"
+      required
+    >
+    <button type="submit">Search</button>
+  </form>
+
+  <div>
+    <button class="notification" type="button" style="position: absolute; top: 10%; right: 15%;">
+      <span class="notification-icon">🔔</span>
+    </button>
+  </div>
+
+  <div>
+    <button (click)="toggleTheme()" class="theme-toggle" style="position: absolute; top: 10%; right: 10%;">
+      <span>{{ darkMode ? '☀️' : '🌙' }}</span>
+    </button>
+  </div>
+
+  <div class="dropdown" style="position: absolute; top: 10%; right: 5%;">
+    <button class="user-profile">
+      <span class="user-name">🙂</span>
+      <ul class="dropdown-menu">
+        <li *ngIf="authService.isAuthenticated">
+          <button class="dropdown-trigger" (click)="logout()">🔐</button>
+        </li>
+      </ul>
+    </button>
+  </div>
+  
+</header>

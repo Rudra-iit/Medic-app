@@ -1,0 +1,226 @@
+:host {
+  --bg-dark: #121319;
+  --bg-card: #1c1e27;
+  --bg-sidebar: #171821;
+  --border-color: #262936;
+  --text-main: #e1e3ed;
+  --text-muted: #7b809a;
+  --accent-purple: #6c5ce7;
+  --accent-purple-light: rgba(108, 92, 231, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+}
+
+/* --- MAIN WRAPPER --- */
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- 2. TOPBAR --- */
+.topbar {
+  height: 60px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.left-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: var(--text-main);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: #212431;
+  padding: 6px 14px;
+  border-radius: 20px;
+  gap: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.search-box input {
+  background: none;
+  border: none;
+  color: var(--text-main);
+  outline: none;
+  font-size: 13px;
+}
+
+.right-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 18px;
+  cursor: pointer;
+  position: relative;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  background-color: #ff4757;
+  color: white;
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 50%;
+}
+
+.user-avatar img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+}
+
+/* --- CONTENT AREA --- */
+.content {
+  padding: 24px;
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.breadcrumb {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* --- 3. CARDS LAYOUT --- */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Stat Cards (1 to 4) */
+.stat-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  min-height: 120px;
+}
+
+.card-title {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.card-value {
+  font-size: 22px;
+  margin-top: 8px;
+}
+
+.card-icon-wrapper {
+  background-color: var(--accent-purple-light);
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.wave-chart {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 25px;
+  background: linear-gradient(180deg, rgba(108, 92, 231, 0) 0%, rgba(108, 92, 231, 0.2) 100%);
+  border-bottom: 2px solid var(--accent-purple);
+}
+
+/* Main Card (5) */
+.main-card {
+  grid-column: span 2; /* Spans full width below the 4 stat cards */
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.orders-card {
+  grid-column: span 2; /* Spans full width below the 4 stat cards */
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.time-filters {
+  display: flex;
+  gap: 8px;
+}
+
+.filter-btn {
+  background: #212431;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.filter-btn.active {
+  background: var(--accent-purple);
+  color: #fff;
+  border-color: var(--accent-purple);
+}
+
+.chart-placeholder {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--border-color);
+  border-radius: 8px;
+  color: var(--text-muted);
+}
