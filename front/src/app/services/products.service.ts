@@ -11,6 +11,7 @@ export interface Product {
   dosage_form: string | null;
   strength: string | null;
   unit: string | null;
+  unit_id: string | null;
   quantity_in_stock: number;
   reorder_threshold: number | null;
   expiry_date: string | null; // ISO date string, e.g. "2026-12-31"
@@ -28,6 +29,7 @@ export interface ProductCreate {
   dosage_form?: string | null;
   strength?: string | null;
   unit?: string | null;
+  unit_id?: string | null;
   quantity_in_stock?: number;
   reorder_threshold?: number | null;
   expiry_date?: string | null;

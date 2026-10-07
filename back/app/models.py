@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from pydantic import BaseModel, EmailStr, Field
 from datetime import datetime, date
 from typing import Literal, Optional
@@ -82,6 +84,7 @@ class ProductCreate(BaseModel):
     dosage_form: Optional[str] = None
     strength: Optional[str] = None
     unit: Optional[str] = None
+    unit_id: Optional[UUID] = None
     quantity_in_stock: int = Field(default=0, ge=0)
     reorder_threshold: Optional[int] = Field(default=None, ge=0)
     expiry_date: Optional[date] = None
@@ -98,6 +101,7 @@ class ProductUpdate(BaseModel):
     dosage_form: Optional[str] = None
     strength: Optional[str] = None
     unit: Optional[str] = None
+    unit_id: Optional[UUID] = None
     quantity_in_stock: Optional[int] = Field(default=None, ge=0)
     reorder_threshold: Optional[int] = Field(default=None, ge=0)
     expiry_date: Optional[date] = None
@@ -114,6 +118,7 @@ class ProductOut(BaseModel):
     dosage_form: Optional[str] = None
     strength: Optional[str] = None
     unit: Optional[str] = None
+    unit_id: Optional[UUID] = None
     quantity_in_stock: int
     reorder_threshold: Optional[int] = None
     expiry_date: Optional[date] = None

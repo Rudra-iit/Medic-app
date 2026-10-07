@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">MedStock</string>
+    <string name="title_activity_main">MedStock</string>
+    <string name="package_name">com.medstock.app</string>
+    <string name="custom_url_scheme">com.medstock.app</string>
+</resources>

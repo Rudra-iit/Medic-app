@@ -30,15 +30,21 @@
         <span class="icon">➕</span>
         <span class="label">Product</span>
       </a>
-      </li>
-      <li>
+    </li>
+    <li>
       <a routerLink="/central-admin" class="menu-item">
         <span class="icon">📝</span>
         <span class="label">People</span>
       </a>
-      </li>
-      </ul>
     </li>
+    <li>
+      <a routerLink="/update" class="menu-item">
+        <span class="icon">⌚</span>
+        <span class="label">Update</span>
+      </a>
+    </li>
+  </ul>
+  </li>
 
     <li *ngIf="!authService.isAuthenticated">
       <a (click)="toggleAuth()" class="menu-item">

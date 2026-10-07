@@ -12,6 +12,7 @@ import { Home } from './home/home';
 import { Header } from './header/header';
 import { CentralAdmin } from './central-admin/central-admin';
 import { Invoice } from './invoice/invoice';
+import { Update } from './update/update';
 
 export const routes: Routes = [
     { path: 'register', component: Register },
@@ -27,5 +28,6 @@ export const routes: Routes = [
     { path: 'home', component: Home },
     { path: 'header', component: Header },
     { path: 'invoice', component: Invoice },
+    { path: 'update', component: Update },
     { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];

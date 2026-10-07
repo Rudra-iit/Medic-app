@@ -1,0 +1,39 @@
+<!-- Product list with scroll -->
+  <div class="product-list-container">
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>SKU</th>
+          <th>Form / Strength</th>
+          <th>Unit ID</th>
+          <th>Stock</th>
+          <th>Expiry</th>
+          <th>Rx?</th>
+          <th *ngIf="authService.isAdmin || authService.isStaff"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of products" [class.low-stock]="isLowStock(p)">
+          <td>{{ p.name }}</td>
+          <td>{{ p.sku }}</td>
+          <td>{{ p.dosage_form }} {{ p.strength }}</td>
+          <td>{{ p.unit_id || '—' }}</td>
+          <td>
+            <span *ngIf="!authService.isAdmin && !authService.isStaff">{{ p.quantity_in_stock }}</span>
+            <ng-container *ngIf="authService.isAdmin || authService.isStaff">
+              <button (click)="adjustStock(p, -1)">−</button>
+              {{ p.quantity_in_stock }}
+              <button (click)="adjustStock(p, 1)">+</button>
+            </ng-container>
+            <span *ngIf="isLowStock(p)" class="low-stock-badge">low</span>
+          </td>
+          <td>{{ p.expiry_date || '—' }}</td>
+          <td>{{ p.requires_prescription ? 'Yes' : 'No' }}</td>
+          <td *ngIf="authService.isAdmin">
+            <button class="delete-btn" (click)="deleteProduct(p)">✕</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

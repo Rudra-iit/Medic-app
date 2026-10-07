@@ -1,0 +1,53 @@
+.product-list-container {
+  max-height: 250px; /* adjust as needed */
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+}
+
+.error {
+  color: #dc2626;
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+select,
+input,
+textarea {
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font: inherit;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+}
+
+.product-table th,
+.product-table td {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 1px solid #eee;
+  font-size: 0.9rem;
+}
+
+.product-table tr.low-stock {
+  background: #fff7ed;
+}
+
+.low-stock-badge {
+  background: #f97316;
+  color: white;
+  font-size: 0.7rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  margin-left: 0.4rem;
+}

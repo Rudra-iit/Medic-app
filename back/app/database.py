@@ -117,6 +117,7 @@ async def connect_db():
                 dosage_form TEXT,
                 strength TEXT,
                 unit TEXT,
+                unit_id TEXT,
                 quantity_in_stock INTEGER NOT NULL DEFAULT 0,
                 reorder_threshold INTEGER,
                 expiry_date DATE,
@@ -127,6 +128,10 @@ async def connect_db():
                 updated_at TIMESTAMPTZ DEFAULT now()
             )
             """
+        )
+
+        await conn.execute(
+            "ALTER TABLE products ADD COLUMN IF NOT EXISTS unit_id TEXT"
         )
 
 

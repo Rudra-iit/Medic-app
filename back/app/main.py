@@ -272,7 +272,7 @@ async def list_products(
         if category_id is not None:
             rows = await conn.fetch(
                 """
-                SELECT id, name, category_id, sku, dosage_form, strength, unit,
+                SELECT id, name, category_id, sku, dosage_form, strength, unit, unit_id,
                        quantity_in_stock, reorder_threshold, expiry_date,
                        requires_prescription, manufacturer, notes,
                        created_at, updated_at
@@ -285,7 +285,7 @@ async def list_products(
         else:
             rows = await conn.fetch(
                 """
-                SELECT id, name, category_id, sku, dosage_form, strength, unit,
+                SELECT id, name, category_id, sku, dosage_form, strength, unit, unit_id,
                        quantity_in_stock, reorder_threshold, expiry_date,
                        requires_prescription, manufacturer, notes,
                        created_at, updated_at
@@ -302,7 +302,7 @@ async def get_product(product_id: int, current_user: Optional[UserOut] = Depends
     async with pool.acquire() as conn:
         row = await conn.fetchrow(
             """
-            SELECT id, name, category_id, sku, dosage_form, strength, unit,
+            SELECT id, name, category_id, sku, dosage_form, strength, unit, unit_id,
                    quantity_in_stock, reorder_threshold, expiry_date,
                    requires_prescription, manufacturer, notes,
                    created_at, updated_at
@@ -326,11 +326,11 @@ async def create_product(
             row = await conn.fetchrow(
                 """
                 INSERT INTO products (
-                    name, category_id, sku, dosage_form, strength, unit,
+                    name, category_id, sku, dosage_form, strength, unit, unit_id,
                     quantity_in_stock, reorder_threshold, expiry_date,
                     requires_prescription, manufacturer, notes
-                ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-                RETURNING id, name, category_id, sku, dosage_form, strength, unit,
+                ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+                RETURNING id, name, category_id, sku, dosage_form, strength, unit, unit_id,
                           quantity_in_stock, reorder_threshold, expiry_date,
                           requires_prescription, manufacturer, notes,
                           created_at, updated_at
@@ -341,6 +341,7 @@ async def create_product(
                 payload.dosage_form,
                 payload.strength,
                 payload.unit,
+                str(payload.unit_id) if payload.unit_id is not None else None,
                 payload.quantity_in_stock,
                 payload.reorder_threshold,
                 payload.expiry_date,
@@ -370,14 +371,16 @@ async def update_product(
     values = []
     for i, (field, value) in enumerate(updates.items(), start=1):
         set_clauses.append(f"{field} = ${i}")
-        values.append(value)
+        values.append(
+            str(value) if field == "unit_id" and value is not None else value
+        )
     set_clauses.append("updated_at = now()")
     values.append(product_id)
 
     query = f"""
         UPDATE products SET {', '.join(set_clauses)}
         WHERE id = ${len(values)}
-        RETURNING id, name, category_id, sku, dosage_form, strength, unit,
+        RETURNING id, name, category_id, sku, dosage_form, strength, unit, unit_id,
                   quantity_in_stock, reorder_threshold, expiry_date,
                   requires_prescription, manufacturer, notes,
                   created_at, updated_at
@@ -405,7 +408,7 @@ async def update_product_stock(
     async with pool.acquire() as conn:
         row = await conn.fetchrow(
             "UPDATE products SET quantity_in_stock = $1, updated_at = now() "
-            "WHERE id = $2 RETURNING id, name, category_id, sku, dosage_form, strength, unit, "
+            "WHERE id = $2 RETURNING id, name, category_id, sku, dosage_form, strength, unit, unit_id, "
             "quantity_in_stock, reorder_threshold, expiry_date, requires_prescription, "
             "manufacturer, notes, created_at, updated_at",
             payload.quantity_in_stock,
@@ -426,4 +429,3 @@ async def delete_product(
         result = await conn.execute("DELETE FROM products WHERE id = $1", product_id)
         if result == "DELETE 0":
             raise HTTPException(status_code=404, detail="Product not found")
-
